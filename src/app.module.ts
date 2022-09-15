@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entitites/User';
+import { UsersModule } from './users/users.module';
 
 
 dotenv.config({ path: process.cwd() + '/config/.env' })
@@ -19,7 +20,7 @@ dotenv.config({ path: process.cwd() + '/config/.env' })
       database: 'applications_app',
       entities: [User],
       synchronize: true
-    })],
+    }), UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
