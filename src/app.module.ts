@@ -1,11 +1,11 @@
 import * as dotenv from 'dotenv'
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entitites/User';
 import { UsersModule } from './users/users.module';
-
+import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 dotenv.config({ path: process.cwd() + '/config/.env' })
 
@@ -20,7 +20,7 @@ dotenv.config({ path: process.cwd() + '/config/.env' })
       database: 'applications_app',
       entities: [User],
       synchronize: true
-    }), UsersModule],
+    }), UsersModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

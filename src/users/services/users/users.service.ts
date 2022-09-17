@@ -12,18 +12,20 @@ export class UsersService {
         private userRepository: Repository<User>
     ) {}
 
-    // createUser
     createUser(userDetails: UserParams): User {
         const user = this.userRepository.create(userDetails)
         this.userRepository.save(user)
         return user
     }
 
-    // findAll
     findAll(): Promise<User[]> {
         return this.userRepository.find()
     }
-    // findById
-    // find by username
+    
+    findByUsername(username: string): Promise<User> {
+        const user = this.userRepository.findOneBy({ username })
+        return user
+    }
+
     // deleteUser
 }
