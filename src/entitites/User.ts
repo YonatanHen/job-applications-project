@@ -13,7 +13,7 @@ export class User {
     @Column()
     password: string
 
-    @OneToOne(() => Profile, { eager: true })
+    @OneToOne(() => Profile, { eager: true, cascade: true })
     @JoinColumn()
     profile: Profile
 }

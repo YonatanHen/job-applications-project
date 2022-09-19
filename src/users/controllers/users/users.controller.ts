@@ -1,10 +1,10 @@
 import { Param, ParseIntPipe, UseGuards } from '@nestjs/common';
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, Res, Put } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { User } from 'src/entitites/User';
 import { CreateUserDto } from 'src/users/dtos/CreateUserDto.dto';
-import { CreateUserProfileDto } from 'src/users/dtos/CreateUserProfileDto.dto';
+import { CRUDUserProfileDto } from 'src/users/dtos/CRUDUserProfileDto.dto';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -33,9 +33,18 @@ export class UsersController {
 
     @UseGuards(JwtAuthGuard)
     @Post(':id/profile')
-    async createUserProfile(@Param('id', ParseIntPipe) id: number, @Body() CreateUserProfileDto: CreateUserProfileDto, @Res() res: Response, @Req() req: Request) {
+    async createUserProfile(@Param('id', ParseIntPipe) id: number, @Body() CreateUserProfileDto: CRUDUserProfileDto, @Res() res: Response, @Req() req: Request) {
         const user = await this.userService.createUserProfile(id, CreateUserProfileDto)
         if(user) res.status(HttpStatus.CREATED).send(`Created profile for ${user.username}.`)
         else throw new HttpException('Failed to create the profile', HttpStatus.BAD_REQUEST)
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':id/update-profile')
+    async UpdateUserProfile(@Param('id', ParseIntPipe) id: number, @Body() UpdateUserProfileDto: CRUDUserProfileDto, @Res() res: Response, @Req() req: Request) {
+        const user = await this.userService.updateUserProfile(id, UpdateUserProfileDto)
+        if(user) res.status(HttpStatus.CREATED).send(`Update ${user.username} profile.`)
+        else throw new HttpException('Failed to update profile', HttpStatus.BAD_REQUEST)
+    }
+
 }
