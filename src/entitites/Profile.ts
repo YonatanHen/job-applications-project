@@ -19,6 +19,4 @@ export class Profile {
     @Column()
     email: string
 
-
-
 }

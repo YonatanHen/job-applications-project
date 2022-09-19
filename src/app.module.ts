@@ -6,6 +6,7 @@ import { User } from './entitites/User';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { Profile } from './entitites/Profile';
 
 dotenv.config({ path: process.cwd() + '/config/.env' })
 
@@ -18,7 +19,7 @@ dotenv.config({ path: process.cwd() + '/config/.env' })
       username: process.env.SQL_USERNAME,
       password: process.env.SQL_PASSWORD,
       database: 'applications_app',
-      entities: [User],
+      entities: [User, Profile],
       synchronize: true
     }), UsersModule, AuthModule],
   controllers: [AppController],

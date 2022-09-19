@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm"
 import { Profile } from "./Profile"
 
 @Entity()
@@ -7,13 +7,13 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
     
-    @Column()
+    @Column({ unique: true })
     username: string
     
     @Column()
     password: string
 
-    @OneToOne(() => Profile)
+    @OneToOne(() => Profile, { eager: true })
     @JoinColumn()
-    profile_id: Profile
+    profile: Profile
 }
