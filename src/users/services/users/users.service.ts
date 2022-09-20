@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Profile } from 'src/entitites/Profile';
 import { User } from 'src/entitites/User';
 import { UserParams, UserProfileParams } from 'src/utils/types';
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -53,5 +53,15 @@ export class UsersService {
         return user
     }
 
-    // deleteUser
+    async deleteUser(username: string): Promise<DeleteResult> {
+        const profileId = (await this.userRepository.findOneBy({ username })).profile.id
+        this.userRepository.delete({ username })
+        return this.deleteUserProfile(profileId)
+
+        // Exceptions aren't handled because in case that the desired row isn't found, nothing will be deleted
+    }
+
+    deleteUserProfile(id: number | null): Promise<DeleteResult> {
+        return this.profileRepository.delete(id)
+    }
 }
