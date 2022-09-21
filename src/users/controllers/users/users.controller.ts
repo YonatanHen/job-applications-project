@@ -13,10 +13,10 @@ export class UsersController {
     constructor(private userService: UsersService) {}
 
 
-    @Get()
-    findAll(): Promise<User[]> {
-        return this.userService.findAll()
-    }
+    // @Get()
+    // findAll(): Promise<User[]> {
+    //     return this.userService.findAll()
+    // }
 
     @Post('create')
     async createUser(@Body() CreateUserDto: CreateUserDto, @Res() res: Response, @Req() req: Request) {
@@ -44,4 +44,9 @@ export class UsersController {
         await this.userService.deleteUser(username)
         res.status(HttpStatus.ACCEPTED).send(`${username} deleted successfully.`)
     }
+
+    // delete profile
+
+    // update user
 }
+

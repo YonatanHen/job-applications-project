@@ -25,4 +25,4 @@ dotenv.config({ path: process.cwd() + '/config/.env' })
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
