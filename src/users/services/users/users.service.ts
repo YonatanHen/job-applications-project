@@ -21,6 +21,22 @@ export class UsersService {
         return user
     }
 
+    // update user
+    async updateUser(username: string, userDetails: UserParams): Promise<UpdateResult> {
+        const userId = (await this.userRepository.findOneBy({ username })).id
+        if (!userId) throw new HttpException("Can't update user details. user not found.", HttpStatus.BAD_REQUEST)
+
+        return this.userRepository.update({ id: userId }, { ...userDetails })
+    }
+
+    async deleteUser(username: string): Promise<DeleteResult> {
+        const profileId = (await this.userRepository.findOneBy({ username })).profile.id
+        this.userRepository.delete({ username })
+        return this.deleteUserProfile(profileId)
+
+        // Exceptions aren't handled because in case that the desired row isn't found, nothing will be deleted
+    }
+
     findAll(): Promise<User[]> {
         return this.userRepository.find()
     }
@@ -41,27 +57,18 @@ export class UsersService {
         return this.userRepository.save(user)
     }
 
-    // update user
-
     // update user profile
     async updateUserProfile(id: number, userProfileDetails: UserProfileParams): Promise<User> {
         const user = await this.userRepository.findOneBy({ id })
-        if (!user) throw new HttpException("Can't create profile. user not found.", HttpStatus.BAD_REQUEST)
+        if (!user) throw new HttpException("Can't update profile. user not found.", HttpStatus.BAD_REQUEST)
         // find if profile exists
         if (user.profile === null) throw new HttpException(`${user.username} has no profile`, HttpStatus.BAD_REQUEST)
         await this.profileRepository.update({ id: user.profile.id }, { ...userProfileDetails })
         return user
     }
 
-    async deleteUser(username: string): Promise<DeleteResult> {
-        const profileId = (await this.userRepository.findOneBy({ username })).profile.id
-        this.userRepository.delete({ username })
-        return this.deleteUserProfile(profileId)
-
-        // Exceptions aren't handled because in case that the desired row isn't found, nothing will be deleted
-    }
-
     deleteUserProfile(id: number | null): Promise<DeleteResult> {
         return this.profileRepository.delete(id)
     }
+
 }
