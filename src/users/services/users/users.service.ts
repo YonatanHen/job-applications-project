@@ -4,6 +4,10 @@ import { Profile } from 'src/entitites/Profile';
 import { User } from 'src/entitites/User';
 import { UserParams, UserProfileParams } from 'src/utils/types';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import * as bcrypt from 'bcrypt'
+import * as dotenv from 'dotenv'
+
+dotenv.config({ path: process.cwd() + '/config/.env' })
 
 @Injectable()
 export class UsersService {
@@ -15,10 +19,18 @@ export class UsersService {
         private profileRepository: Repository<Profile>
     ) { }
 
-    createUser(userDetails: UserParams): User {
+    async createUser(userDetails: UserParams): Promise<User | void> {
+        const hashedPassword: string = await bcrypt.hash(userDetails.password, parseInt(process.env.SALT_OR_ROUNDS))
+        userDetails = { ...userDetails, password: hashedPassword }
         const user = this.userRepository.create(userDetails)
-        this.userRepository.save(user)
-        return user
+
+        const savedUser = this.userRepository.save(user)
+            .catch(err => {
+                if(err.code === 'ER_DUP_ENTRY') 
+                    throw new HttpException(`Username ${userDetails.username} already exists. try another one.`,
+                                            HttpStatus.NOT_IMPLEMENTED)
+            })
+        return savedUser
     }
 
     // update user

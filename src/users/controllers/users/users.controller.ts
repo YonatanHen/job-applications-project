@@ -1,6 +1,6 @@
 import { Get, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { Body, Controller, HttpStatus, Post, Req, Res, Put, Delete } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { CRUDUserDto } from 'src/users/dtos/CRUDUserDto.dto';
 import { CRUDUserProfileDto } from 'src/users/dtos/CRUDUserProfileDto.dto';
@@ -25,7 +25,7 @@ export class UsersController {
 
     @Post('create')
     async createUser(@Body() CreateUserDto: CRUDUserDto, @Res() res: Response) {
-        const user = this.userService.createUser(CreateUserDto)
+        const user = await this.userService.createUser(CreateUserDto)
         if(user) res.status(HttpStatus.CREATED).send(`Created user ${user.username}.`)
     }
 
