@@ -22,14 +22,16 @@ export class UsersService {
     async createUser(userDetails: UserParams): Promise<User | void> {
         const hashedPassword: string = await bcrypt.hash(userDetails.password, parseInt(process.env.SALT_OR_ROUNDS))
         userDetails = { ...userDetails, password: hashedPassword }
-        const user = this.userRepository.create(userDetails)
 
-        const savedUser = this.userRepository.save(user)
+        // NOTE: Using save instead of insert because we want to retrieve the new user to the controller function.
+        // Even though, insert function having better performance.
+        const savedUser = this.userRepository.save(userDetails)
             .catch(err => {
-                if(err.code === 'ER_DUP_ENTRY') 
+                if (err.code === 'ER_DUP_ENTRY')
                     throw new HttpException(`Username ${userDetails.username} already exists. try another one.`,
-                                            HttpStatus.NOT_IMPLEMENTED)
+                        HttpStatus.NOT_IMPLEMENTED)
             })
+
         return savedUser
     }
 
@@ -63,8 +65,8 @@ export class UsersService {
         if (!user) throw new HttpException("Can't create profile. user not found.", HttpStatus.BAD_REQUEST)
         // find if profile exists
         if (user.profile !== null) throw new HttpException(`${user.username} already has a profile`, HttpStatus.CONFLICT)
-        const newProfile = this.profileRepository.create(userProfileDetails)
-        const savedProfile = await this.profileRepository.save(newProfile)
+
+        const savedProfile = await this.profileRepository.save(userProfileDetails)
         user.profile = savedProfile
         return this.userRepository.save(user)
     }
