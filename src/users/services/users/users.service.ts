@@ -35,7 +35,6 @@ export class UsersService {
         return savedUser
     }
 
-    // update user
     async updateUser(username: string, userDetails: UserParams): Promise<UpdateResult> {
         const userId = (await this.userRepository.findOneBy({ username })).id
         if (!userId) throw new HttpException("Can't update user details. user not found.", HttpStatus.BAD_REQUEST)
@@ -71,7 +70,6 @@ export class UsersService {
         return this.userRepository.save(user)
     }
 
-    // update user profile
     async updateUserProfile(id: number, userProfileDetails: UserProfileParams): Promise<User> {
         const user = await this.userRepository.findOneBy({ id })
         if (!user) throw new HttpException("Can't update profile. user not found.", HttpStatus.BAD_REQUEST)
