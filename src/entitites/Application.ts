@@ -20,6 +20,6 @@ export class Application {
     @Column()
     status: Status
 
-    @ManyToOne(() => User, (user) => user.applications)
+    @ManyToOne(() => User, (user) => user.applications, { eager: true, cascade: true })
     user: User 
 }

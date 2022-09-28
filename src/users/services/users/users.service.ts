@@ -30,6 +30,9 @@ export class UsersService {
                 if (err.code === 'ER_DUP_ENTRY')
                     throw new HttpException(`Username ${userDetails.username} already exists. try another one.`,
                         HttpStatus.NOT_IMPLEMENTED)
+                else if(err.code) 
+                throw new HttpException(`An error occured.`,
+                    HttpStatus.NOT_IMPLEMENTED)
             })
 
         return savedUser

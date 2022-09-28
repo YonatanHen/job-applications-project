@@ -6,10 +6,11 @@ import { UsersController } from './controllers/users/users.controller';
 import { UsersService } from './services/users/users.service';
 import { Application } from 'src/entitites/Application';
 import { ApplicationsService } from './services/applications/applications.service';
+import { ApplicationsController } from './controllers/applications/applications.controller';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User, Profile, Application])],
-    controllers: [UsersController],
+    controllers: [UsersController, ApplicationsController],
     providers: [UsersService, ApplicationsService],
     exports: [UsersService]
 })
