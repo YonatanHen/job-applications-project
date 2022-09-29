@@ -7,10 +7,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { Profile } from './entitites/Profile';
-import { ApplicationsModule } from './services/applications/applications.module';
-import { ApplicationsModule } from './applications/applications.module';
-import { ApplicationsService } from './services/applications/applications/applications.service';
-import { ApplicationsService } from './user/services/applications/applications.service';
+import { ApplicationsService } from './users/services/applications/applications.service';
+import { Application } from './entitites/Application';
+
 
 dotenv.config({ path: process.cwd() + '/config/.env' })
 
@@ -23,10 +22,10 @@ dotenv.config({ path: process.cwd() + '/config/.env' })
       username: process.env.SQL_USERNAME,
       password: process.env.SQL_PASSWORD,
       database: 'applications_app',
-      entities: [User, Profile],
+      entities: [User, Profile, Application],
       synchronize: true
-    }), UsersModule, AuthModule, ApplicationsModule],
+    }), UsersModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService, ApplicationsService],
+  providers: [AppService],
 })
 export class AppModule {}

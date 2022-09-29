@@ -12,7 +12,7 @@ import { ApplicationsController } from './controllers/applications/applications.
     imports: [TypeOrmModule.forFeature([User, Profile, Application])],
     controllers: [UsersController, ApplicationsController],
     providers: [UsersService, ApplicationsService],
-    exports: [UsersService]
+    exports: [UsersService, ApplicationsService]
 })
 
 export class UsersModule { }
