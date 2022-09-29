@@ -15,11 +15,11 @@ export class Application {
     location: string
 
     @Column()
-    date: Date
+    date: string
 
-    @Column()
+    @Column({ type: "enum", enum: Status, default: Status.Q })
     status: Status
 
     @ManyToOne(() => User, (user) => user.applications, { eager: true, cascade: true })
-    user: User 
+    user: User
 }
