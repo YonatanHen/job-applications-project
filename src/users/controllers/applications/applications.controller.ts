@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Put, Res, UseGuards } from '@nestjs/common';
 import { application, Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { CRUDApplicationDto } from 'src/users/dtos/CRUDApplicationDTO';
@@ -25,5 +25,19 @@ export class ApplicationsController {
         await this.applicationService.createApplication(username, createApplicationDto)
         res.status(HttpStatus.ACCEPTED).send("Application created successfully.")
         //QueryFailedError: Column 'status' cannot be null
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':username/:id')
+    async updateApplication(@Param('username') username: string, @Param('id', ParseIntPipe) id: number, @Body() updateApplicationDto: CRUDApplicationDto, @Res() res: Response) {
+        await this.applicationService.updateApplication(username,id,updateApplicationDto)
+        res.status(HttpStatus.ACCEPTED).send("Application updated successfully.")
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete(':username/:id')
+    async deleteApplication(@Param('username') username: string, @Param('id', ParseIntPipe) id: number, @Body() updateApplicationDto: CRUDApplicationDto, @Res() res: Response) {   
+        await this.applicationService.deleteApplication(username,id,updateApplicationDto)
+        res.status(HttpStatus.ACCEPTED).send("Application removed successfully.")
     }
 }

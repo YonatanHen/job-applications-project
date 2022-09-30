@@ -12,6 +12,9 @@ export class Application {
     role: string
 
     @Column()
+    company: string
+
+    @Column()
     location: string
 
     @Column()

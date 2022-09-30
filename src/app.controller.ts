@@ -15,10 +15,4 @@ export class AppController {
     async login(@Req() req: Request & { user: any }) {
         return this.authService.login(req.user);
     }
-
-    @UseGuards(JwtAuthGuard)
-    @Get('profile')
-    getProfile(@Req() req: Request & { user: any }) {
-        return req.user
-    }
 }
