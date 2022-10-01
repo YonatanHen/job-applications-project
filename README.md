@@ -40,7 +40,7 @@ This is V1 of the project, currently in progress: Entity rules, and more excepti
 - JWT
 
 ## ERD
-
+![job-applications drawio (1)](https://user-images.githubusercontent.com/57364867/193398858-7b813581-22f7-47e6-b564-7d3d5e0c4ac8.png)
 
 ## Installation
 
