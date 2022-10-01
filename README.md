@@ -24,7 +24,23 @@
 
 ## Description
 
+We are sending a lot of resumes to different companies while searching a new job. As we know, it is hard to follow up when we sent the resume, to which company and when we sent it. This project suggests a solution for this issue by writing every submission details in a MySQL databse.
+The project offers every job searcher to create his own user, add profile details (one-to-one relationship), and add his submissions (one-to-many/many-to-one). 
+All of those details are available for create/read/update/delete.
+
+This is V1 of the project, currently in progress: Entity rules, and more exception handling. Frontend interface is still considered.
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Tech Stack
+- TypeScript
+- Nest.js
+- MySQL
+- TypeORM
+- JWT
+
+## ERD
+
 
 ## Installation
 
