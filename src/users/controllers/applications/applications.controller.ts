@@ -36,8 +36,8 @@ export class ApplicationsController {
 
     @UseGuards(JwtAuthGuard)
     @Delete(':username/:id')
-    async deleteApplication(@Param('username') username: string, @Param('id', ParseIntPipe) id: number, @Body() updateApplicationDto: CRUDApplicationDto, @Res() res: Response) {   
-        await this.applicationService.deleteApplication(username,id,updateApplicationDto)
+    async deleteApplication(@Param('username') username: string, @Param('id', ParseIntPipe) id: number, @Res() res: Response) {   
+        await this.applicationService.deleteApplication(username,id)
         res.status(HttpStatus.ACCEPTED).send("Application removed successfully.")
     }
 }
