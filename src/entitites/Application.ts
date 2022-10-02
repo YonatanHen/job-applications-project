@@ -17,7 +17,7 @@ export class Application {
     @Column()
     location: string
 
-    @Column()
+    @Column({ type: 'date' })
     date: string
 
     @Column({ type: "enum", enum: Status, default: Status.Q })
