@@ -25,8 +25,8 @@
 ## Description
 
 We send many resumes to different companies while searching for a new job. As we know, it is hard to follow up on when we sent the resume, to which company, and when we sent it. This project suggests a solution for this issue by writing every submission details in a (MySQL) database.
-The project offers every job seeker to create his own user, add profile details (one-to-one relationship), and add his submissions (one-to-many/many-to-one). 
-All of those details are available for create/read/update/delete.
+The project offers every job seeker to create a user, add profile details (one-to-one relationship), and and jobs applications details (one-to-many/many-to-one). 
+All of those are available for create/read/update/delete.
 
 This is V1 of the project, currently in progress: Entity rules, and more exception handling. The frontend interface is still in consideration.
 
