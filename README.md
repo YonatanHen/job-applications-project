@@ -24,7 +24,23 @@
 
 ## Description
 
+We send many resumes to different companies while searching for a new job. As we know, it is hard to follow up on when we sent the resume, to which company, and when we sent it. This project suggests a solution for this issue by writing every submission details in a (MySQL) database.
+The project offers every job seeker to create a user, add profile details (one-to-one relationship), and jobs applications details (one-to-many/many-to-one). 
+All of those are available for create/read/update/delete.
+
+This is V1 of the project, currently in progress: Entity rules, and more exception handling. The frontend interface is still in consideration.
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Tech Stack
+- TypeScript
+- Nest.js
+- MySQL
+- TypeORM
+- JWT
+
+## ERD
+![job-applications drawio (1)](https://user-images.githubusercontent.com/57364867/193398858-7b813581-22f7-47e6-b564-7d3d5e0c4ac8.png)
 
 ## Installation
 
@@ -61,12 +77,6 @@ $ npm run test:cov
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
