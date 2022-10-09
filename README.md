@@ -28,8 +28,6 @@ We send many resumes to different companies while searching for a new job. As we
 The project offers every job seeker to create a user, add profile details (one-to-one relationship), and jobs applications details (one-to-many/many-to-one). 
 All of those are available for create/read/update/delete.
 
-This is V1 of the project, currently in progress: Entity rules, and more exception handling. The frontend interface is still in consideration.
-
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Tech Stack
